@@ -1,0 +1,19 @@
+/*global colours*/
+:root {
+  --black: black;
+  --white: white;
+  --dblue: darkblue;
+  --lblue: lightblue;
+  --dgrey: darkgrey;
+  --lgrey: lightgrey;
+  }
+
+/*header*/
+.header {
+    background-color:var(--dblue);
+    color: var(--white);
+    text-align: center;
+}
+aside {
+  border: 1px black solid;
+}
