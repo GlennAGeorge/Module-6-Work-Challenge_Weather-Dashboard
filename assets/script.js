@@ -1,21 +1,14 @@
 const weatherApi = "https://api.openweathermap.org";
 const apiKey = "c44e2b78183ad8b27e02c95710f82236";
-//Testing
+
 var citySearchForm = document.querySelector("#city-search-form");
 var cityInputEl = document.querySelector("#cityInput");
 var cityNameEl = document.querySelector("#cityName");
 var searchBtnEl = document.querySelector("#searchBtn");
-var tempEl = document.querySelector("#temp");
-
-// function prevDefault(event) {
-//     event.prevDefault();
-// }
+var tempEl = document.querySelector("#temp").innerHTML;
 
 function getWeatherData(location) {
-	// var requestUrl =
-	// 	"http://api.openweathermap.org/data/2.5/forecast?q=" +
-	// 	cityInputEl +
-	// 	"&appid=c44e2b78183ad8b27e02c95710f82236&units=metric";
+
 	console.log(location);
 
 	let { lat } = location;
@@ -24,17 +17,45 @@ function getWeatherData(location) {
 	console.log(city);
 	// /forecast?q=Melbourne&appid=c44e2b78183ad8b27e02c95710f82236&units=metric
 	// const requestUrl = `${weatherApi}/data/2.5/forecast?q=${cityInputEl}&appid=${apiKey}&units=metric`;
-	const requestUrl = `${weatherApi}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${apiKey}`;
+	const requestUrl = `${weatherApi}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
 	fetch(requestUrl)
 		.then(function (response) {
 			return response.json();
 		})
-		.then(function (data) {
-			// for (let index = 0; index < data.length; index++) {
-			// 	temp = text.replace(data.list[index].main.temp);
-			// 	// tempEl.appendChild(temp);
-			// }
+        .then(function (data) {
+            
+// Tempreture
+            for (index = 0; index <5; index++) {
+                var temp = (data.list[index].main.temp);
+                console.log(temp);   
+                // document.getElementById('day' + (i + 1) + 'min').innerHTML = 'min'
+            }
+// Wind speed
+            for (index = 0; index <5; index++) {
+                var wind = (data.list[index].wind.speed);
+                console.log(wind);             
+            }
+// Humidity
+            for (index = 0; index <5; index++) {
+                var humidity = (data.list[index].main.humidity);
+                console.log(humidity);             
+            }
+// Weather icons
+            for (index = 0; index <5; index++) {
+                var icon = (data.list[index].weather[0].icon);
+                console.log(icon);        
+                
+                // document.getElementById(`'img' + (index + 1)).src = 'http://openweathermap.org/img/wn/'${icon}`)
+            }
+
+            // let tempretures = temp
+            //    document.querySelector('#temp').innerHTML = temp
+                
+
+				// temp = text.replace(data.list[index].main.temp);
+				// tempEl.appendChild(temp);
+	
 
 			// renderWeatherItems(city, data); <- function render current weather and render forecast
 			console.log(data);
