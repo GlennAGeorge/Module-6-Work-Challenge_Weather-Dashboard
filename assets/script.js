@@ -7,8 +7,46 @@ var cityNameEl = document.querySelector("#cityName");
 var searchBtnEl = document.querySelector("#searchBtn");
 var tempEl = document.querySelector("#temp").innerHTML;
 
-function getWeatherData(location) {
+dayjs.extend(window.dayjs_plugin_utc);
+dayjs.extend(window.dayjs_plugin_timezone);
 
+function renderCurrentWeather(city, weather, timezone) {
+	let date = dayjs().tz(timezone).format("DD/MM/YYYY");
+	console.log(weather.temp);
+
+	let temperatureCelsius = weather.temp;
+
+	let temperatureEl = document.createElement("p");
+
+	temperatureEl.setAttribute("class", "text-for-card");
+
+	temperatureEl.textContent = `Temperature is ${temperatureCelsius} celsius`;
+}
+
+function renderForecast(daily, timezone) {
+	let startDate = dayjs().tz(timezone).add(1, "day").startOf("day").unix();
+	let endDate = dayjs().tz(timezone).add(6, "day").startOf("day").unix();
+
+	// heading forecast
+	//all this data in a card
+
+	for (let i = 0; i < daily.length; i++) {
+		// push this range to a card to show
+		console.log(daily);
+	}
+}
+
+function renderData(city, data) {
+	// render current weather
+	console.log(data);
+
+	renderCurrentWeather(city, data.current, data.timezone);
+	// render forecast
+
+	renderForecast(data.daily, data.timezone);
+}
+
+function getWeatherData(location) {
 	console.log(location);
 
 	let { lat } = location;
@@ -17,45 +55,44 @@ function getWeatherData(location) {
 	console.log(city);
 	// /forecast?q=Melbourne&appid=c44e2b78183ad8b27e02c95710f82236&units=metric
 	// const requestUrl = `${weatherApi}/data/2.5/forecast?q=${cityInputEl}&appid=${apiKey}&units=metric`;
-	const requestUrl = `${weatherApi}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+	const requestUrl = `${weatherApi}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
 	fetch(requestUrl)
 		.then(function (response) {
 			return response.json();
 		})
-        .then(function (data) {
-            
-// Tempreture
-            for (index = 0; index <5; index++) {
-                var temp = (data.list[index].main.temp);
-                console.log(temp);   
-                // document.getElementById('day' + (i + 1) + 'min').innerHTML = 'min'
-            }
-// Wind speed
-            for (index = 0; index <5; index++) {
-                var wind = (data.list[index].wind.speed);
-                console.log(wind);             
-            }
-// Humidity
-            for (index = 0; index <5; index++) {
-                var humidity = (data.list[index].main.humidity);
-                console.log(humidity);             
-            }
-// Weather icons
-            for (index = 0; index <5; index++) {
-                var icon = (data.list[index].weather[0].icon);
-                console.log(icon);        
-                
-                // document.getElementById(`'img' + (index + 1)).src = 'http://openweathermap.org/img/wn/'${icon}`)
-            }
+		.then(function (data) {
+			renderData(city, data);
+			// // Tempreture
+			//             for (index = 0; index < 5; index++) {
+			//                 var temp = data.list[index].main.temp;
+			//                 console.log(temp)
+			//                 document.querySelector('#temp').innerHTML = temp
+			//             }
 
-            // let tempretures = temp
-            //    document.querySelector('#temp').innerHTML = temp
-                
+			// // Wind speed
+			//             for (index = 0; index <5; index++) {
+			//                 var wind = (data.list[index].wind.speed);
+			//                 console.log(wind);
+			//             }
+			// // Humidity
+			//             for (index = 0; index <5; index++) {
+			//                 var humidity = (data.list[index].main.humidity);
+			//                 console.log(humidity);
+			//             }
+			// // Weather icons
+			//             for (index = 0; index <5; index++) {
+			//                 var icon = (data.list[index].weather[0].icon);
+			//                 console.log(icon);
 
-				// temp = text.replace(data.list[index].main.temp);
-				// tempEl.appendChild(temp);
-	
+			//                 // document.getElementById(`'img' + (index + 1)).src = 'http://openweathermap.org/img/wn/'${icon}`)
+			//             }
+
+			// let tempretures = temp
+			//    document.querySelector('#temp').innerHTML = temp
+
+			// temp = text.replace(data.list[index].main.temp);
+			// tempEl.appendChild(temp);
 
 			// renderWeatherItems(city, data); <- function render current weather and render forecast
 			console.log(data);
