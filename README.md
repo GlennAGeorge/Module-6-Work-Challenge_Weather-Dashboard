@@ -21,9 +21,10 @@ THEN I am again presented with current and future conditions for that city
 
 Mock-Up The following vido shows the web application's appearance and functionality: 
 
-GitHub URL: https://github.com/GlennAGeorge/Module-6-Work-Challenge_Weather-Dashboard
+![image](https://user-images.githubusercontent.com/101438475/180042491-af86b99b-c27c-464f-81a2-264797f8bcf6.png)
 
-VS code Live Server: http://127.0.0.1:5500/index.html
+
+GitHub URL: https://github.com/GlennAGeorge/Module-6-Work-Challenge_Weather-Dashboard
 
 GitHub Pages URL: https://glennageorge.github.io/Module-6-Work-Challenge_Weather-Dashboard/
 
